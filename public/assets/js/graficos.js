@@ -1,4 +1,4 @@
-am4core.ready(function() {
+am4core.ready(function () {
 
     // Themes begin
     // Themes end
@@ -44,75 +44,34 @@ function grafico1() {
     title.fontSize = 15;
     title.fill = am4core.color("#fff");
 
+    votos.forEach(element => {
+        chart.data.push({ "name": element.name, "votos": element.votos, "href": element.img, "color": element.color });
+    });
 
-    chart.data = [{
-            "name": "Candidato G",
-            "steps": voto[0].mj,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#2b9348")
-        }, {
-            "name": "Candidato F",
-            "steps": voto[0].mv,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#22577a")
-        }, {
-            "name": "Candidato E",
-            "steps": voto[0].gf,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#f5cb5c")
-        },
-        {
-            "name": "Candidato D",
-            "steps": voto[0].lc,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#588b8b")
-        },
-
-        {
-            "name": "Candidato C",
-            "steps": voto[0].mm,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#0466c8")
-        },
-        {
-            "name": "Candidato B",
-            "steps": voto[0].ws,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#00b4d8")
-        },
-
-        {
-            "name": "Candidato A",
-            "steps": voto[0].mp,
-            "href": "./assets/img/usuario.png",
-            'color': am4core.color("#9b5de5")
-        }
-
-    ];
 
     var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
-    categoryAxis.renderer.minGridDistance = 5;
-    categoryAxis.renderer.labels.template.dx = -26;
-    categoryAxis.renderer.minWidth = 130;
-    categoryAxis.renderer.tooltip.dx = -40;
+    categoryAxis.renderer.minGridDistance = 10;
+    categoryAxis.renderer.labels.template.dx = -30;
+
+    categoryAxis.renderer.minWidth = 150;
+    categoryAxis.renderer.tooltip.dx = 0;
 
     var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
-    valueAxis.min = 0;
+
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
     valueAxis.renderer.labels.template.dy = 30;
 
     var series = chart.series.push(new am4charts.ColumnSeries);
-    series.dataFields.valueX = "steps";
+    series.dataFields.valueX = "votos";
     series.dataFields.categoryY = "name";
     series.tooltipText = "{valueX.value}";
     series.columns.template.propertyFields.fill = "color";
-
     series.tooltip.pointerOrientation = "vertical";
     series.tooltip.dy = -30;
     series.columnsContainer.zIndex = 100;
@@ -129,7 +88,13 @@ function grafico1() {
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
 
-    series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueX", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
+    series.heatRules.push({
+        target: columnTemplate,
+        property: "fill",
+        dataField: "valueX",
+        min: am4core.color("#e5dc36"),
+        max: am4core.color("#5faa46")
+    });
     series.mainContainer.mask = undefined;
 
     var cursor = new am4charts.XYCursor();
@@ -149,7 +114,7 @@ function grafico1() {
 
     var hoverState = bullet.states.create("hover");
     var outlineCircle = bullet.createChild(am4core.Circle);
-    outlineCircle.adapter.add("radius", function(radius, target) {
+    outlineCircle.adapter.add("radius", function (radius, target) {
         var circleBullet = target.parent;
         return circleBullet.circle.pixelRadius + 5;
     })
@@ -161,13 +126,14 @@ function grafico1() {
     image.verticalCenter = "middle";
     image.propertyFields.href = "href";
 
-    image.adapter.add("mask", function(mask, target) {
+    image.adapter.add("mask", function (mask, target) {
         var circleBullet = target.parent;
         return circleBullet.circle;
     })
 
+
     var previousBullet;
-    chart.cursor.events.on("cursorpositionchanged", function(event) {
+    chart.cursor.events.on("cursorpositionchanged", function (event) {
         var dataItem = series.tooltipDataItem;
 
         if (dataItem.column) {
@@ -186,11 +152,9 @@ function grafico1() {
                 previousBullet = bullet;
             }
         }
-    })
+    });
 
-
-
-    //////////////////////grafico de poddometro
+    //////////////////////grafico de poddometro/////////////////////
     var chart = am4core.create("podometro2", am4charts.GaugeChart);
     chart.innerRadius = am4core.percent(82);
     chart.logo.disabled = true;
@@ -200,9 +164,6 @@ function grafico1() {
     title.fontSize = 15;
     title.fill = am4core.color("#fff");
 
-    /**
-     * Normal axis
-     */
 
     var axis = chart.xAxes.push(new am4charts.ValueAxis());
     axis.min = 0;
@@ -216,13 +177,7 @@ function grafico1() {
     axis.renderer.ticks.template.length = 10;
     axis.renderer.grid.template.disabled = true;
     axis.renderer.labels.template.radius = 40;
-    // axis.renderer.labels.template.adapter.add("text", function(text) {
-    //     return text + "%";
-    // })
 
-    /**
-     * Axis for ranges
-     */
 
     var colorSet = new am4core.ColorSet();
 
@@ -271,7 +226,7 @@ function grafico1() {
     hand.pin.disabled = true;
     hand.value = jrvsporc[0].total_jrv;
 
-    hand.events.on("propertychanged", function(ev) {
+    hand.events.on("propertychanged", function (ev) {
         range0.endValue = ev.target.value;
         range1.value = ev.target.value;
         label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
@@ -298,7 +253,7 @@ function grafico1() {
 
     var axis = chart2.xAxes.push(new am4charts.ValueAxis());
     axis.min = 0;
-    axis.max = 328;
+    axis.max = 150;
     axis.strictMinMax = true;
     axis.renderer.radius = am4core.percent(80);
     axis.renderer.inside = true;
@@ -308,33 +263,27 @@ function grafico1() {
     axis.renderer.ticks.template.length = 10;
     axis.renderer.grid.template.disabled = true;
     axis.renderer.labels.template.radius = 40;
-    // axis.renderer.labels.template.adapter.add("text", function(text) {
-    //     return text + "%";
-    // })
 
-    /**
-     * Axis for ranges
-     */
 
     var colorSet = new am4core.ColorSet();
 
     var axis2 = chart2.xAxes.push(new am4charts.ValueAxis());
     axis2.min = 0;
-    axis2.max = 328;
+    axis2.max = 150;
     axis2.strictMinMax = true;
     axis2.renderer.labels.template.disabled = true;
     axis2.renderer.ticks.template.disabled = true;
     axis2.renderer.grid.template.disabled = true;
 
     var range0 = axis2.axisRanges.create();
-    range0.value = 0;
-    range0.endValue = 164;
+    range0.value = 150;
+    range0.endValue = 0;
     range0.axisFill.fillOpacity = 1;
     range0.axisFill.fill = colorSet.getIndex(0);
 
     var range1 = axis2.axisRanges.create();
     range1.value = 0;
-    range1.endValue = 328;
+    range1.endValue = 150;
     range1.axisFill.fillOpacity = 1;
     range1.axisFill.fill = colorSet.getIndex(2);
 
@@ -363,7 +312,7 @@ function grafico1() {
     hand.pin.disabled = true;
     hand.value = jrvs[0].total_jrv;
 
-    hand.events.on("propertychanged", function(ev) {
+    hand.events.on("propertychanged", function (ev) {
         range0.endValue = ev.target.value;
         range1.value = ev.target.value;
         label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
@@ -382,51 +331,19 @@ function grafico1() {
 
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
     chart.legend = new am4charts.Legend();
-
-
-    chart.data = [{
-            country: "PARTIDO A",
-            litres: voto[0].mp
-        },
-        {
-            country: "COALICIÓN A",
-            litres: voto[0].ws
-        },
-        {
-            country: "PARTIDO B",
-            litres: voto[0].mm
-        },
-        {
-            country: "PARTIDO C",
-            litres: voto[0].mj
-        },
-        {
-            country: "PARTIDO D",
-            litres: voto[0].mv
-        },
-        {
-            country: "PARTIDO E",
-            litres: voto[0].lc
-        },
-        {
-            country: "PARTIDO F",
-            litres: voto[0].gf
-        },
-
-    ];
-
     var series = chart.series.push(new am4charts.PieSeries3D());
-    series.dataFields.value = "litres";
-    series.dataFields.category = "country";
-    series.colors.list = [
-        am4core.color("#9b5de5"),
-        am4core.color("#00b4d8"),
-        am4core.color("#0466c8"),
-        am4core.color("#2b9348"),
-        am4core.color("#22577a"),
-        am4core.color("#588b8b"),
-        am4core.color("#f5cb5c"),
-    ];
+    series.dataFields.value = "votos";
+    series.dataFields.category = "partido";
+
+    votos.forEach(element => {
+        chart.data.push({ "partido": element.partido, "votos": element.votos });
+        series.colors.list.push(am4core.color(element.color),);
+    });
+
+
+
+
+
     //////////////////////////////////////////////////////////////////////////
 
 
@@ -440,22 +357,22 @@ function grafico1() {
 
     // Add data
     chart.data = [{
-        "country": "Validos",
-        "visits": tvotos[0].validos
+        "tipoVoto": "Validos",
+        "cantidad": tvotos[0].v_validos
     }, {
-        "country": "Nulos",
-        "visits": tvotos[0].nulos
+        "tipoVoto": "Nulos",
+        "cantidad": tvotos[0].v_nulos
     }, {
-        "country": "Impugnados",
-        "visits": tvotos[0].impugnados
+        "tipoVoto": "Impugnados",
+        "cantidad": tvotos[0].v_impugnados
     }, {
-        "country": "Abstencions",
-        "visits": tvotos[0].abstenciones
+        "tipoVoto": "Abstencions",
+        "cantidad": tvotos[0].abstenciones
     }];
 
     // Create axes
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "country";
+    categoryAxis.dataFields.category = "tipoVoto";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
     categoryAxis.renderer.labels.template.horizontalCenter = "right";
@@ -466,12 +383,12 @@ function grafico1() {
 
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.minWidth = 50;
-    valueAxis.max = tvotos[0].validos * 1.1
-        // Create series
+    valueAxis.max = tvotos[0].v_validos * 1.05
+    // Create series
     var series = chart.series.push(new am4charts.ColumnSeries());
     series.sequencedInterpolation = true;
-    series.dataFields.valueY = "visits";
-    series.dataFields.categoryX = "country";
+    series.dataFields.valueY = "cantidad";
+    series.dataFields.categoryX = "tipoVoto";
     series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
     series.columns.template.strokeWidth = 0;
 
@@ -484,14 +401,14 @@ function grafico1() {
 
     var bullet = series.bullets.push(new am4charts.LabelBullet())
     bullet.interactionsEnabled = false
-        // bullet.dy = 5;
+    // bullet.dy = 5;
     bullet.label.text = "{valueY.formatNumber('#.a')}";
 
     bullet.label.fontWeight = 'bold'
 
     bullet.label.fill = am4core.color('#fff')
-        // bullet.label.truncate = true;
-        // // bullet.label.hideOversized = true;
+    // bullet.label.truncate = true;
+    // // bullet.label.hideOversized = true;
 
     // on hover, make corner radiuses bigger
     var hoverState = series.columns.template.column.states.create("hover");
@@ -499,7 +416,7 @@ function grafico1() {
     hoverState.properties.cornerRadiusTopRight = 0;
     hoverState.properties.fillOpacity = 1;
 
-    series.columns.template.adapter.add("fill", function(fill, target) {
+    series.columns.template.adapter.add("fill", function (fill, target) {
         return chart.colors.getIndex(target.dataItem.index);
     });
 

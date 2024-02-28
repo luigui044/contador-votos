@@ -7,7 +7,8 @@ use App\Models\CentrosVotacion;
 use App\Models\Jrv;
 use App\Models\TResultado;
 use App\Models\TResultadosActa;
-use App\Models\VSumaVoto;
+
+use App\Models\VwSumaVoto;
 use App\Models\VSumaVotosActa;
 use App\Models\ContarJrv;
 use App\Models\ContarJrvActa;
@@ -16,13 +17,9 @@ use App\Models\TTipoVotoActa;
 use App\Models\ContarJrvPorcentaje;
 use App\Models\ContarJrvPorcentajeActa;
 
-
-
-
-
-
-
 use App\Models\TTipoVoto;
+use App\Models\VwTipoVoto;
+
 use DB;
 use JavaScript;
 class HomeController extends Controller
@@ -240,12 +237,15 @@ class HomeController extends Controller
 
     public function resumen()
     {   
-        $voto = VSumaVoto::all();
+
+        
+        $votos = VwSumaVoto::all();
         $jrvs = ContarJrv::all();
          $jrvsporc= ContarJrvPorcentaje::all();
-        $tvotos = TTipoVoto::all();
+        $tvotos = VwTipoVoto::all();
         JavaScript::put([
-        'voto' => $voto,
+        
+        'votos' => $votos,
         'jrvs' => $jrvs,
         'jrvsporc' => $jrvsporc,
         'tvotos'=> $tvotos
