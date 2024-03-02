@@ -8,7 +8,7 @@
     <meta name="description" content="Sistema Contador de votos - SICE">
     @yield('recarga')
     @include('layouts.styles')
-    <title>Counter 2021</title>
+    <title>Counter 2024</title>
     @yield('csrf')
 
 </head>
