@@ -62,8 +62,8 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary  btn-lg btn-block"><i class="fas fa-vote-yea"></i> Guardar
-                Conteo de JRV</button>
+            <button type="button" id="btnGuardar" class="btn btn-primary  btn-lg btn-block"><i class="fas fa-vote-yea"></i>
+                Procesar Acta</button>
 
         </form>
 
