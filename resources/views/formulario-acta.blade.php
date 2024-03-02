@@ -5,10 +5,9 @@
 @endsection
 @section('contenedor')
     <div class="container-fluid">
-
         <h1 class="text-center">Formulario de ingreso de actas</h1>
         <hr>
-        <form action="{{ route('guardar2') }}" id="formulario" method="POST">
+        <form action="{{ route('acta.procesar') }}" id="formulario" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
 
@@ -50,24 +49,25 @@
                             <div class="btn btn-mdb-color btn-rounded float-left">
                                 <span class="font-weight-bold"><i class="fas fa-file-upload"></i> Subir imagen de
                                     acta...</span>
-                                <input type="file" onchange="displaySelectedImage(event, 'selectedImage')">
+                                <input type="file" onchange="displaySelectedImage(event, 'selectedImage')"
+                                    name="archivo_acta">
                             </div>
                             <div class="btn btn-blue btn-rounded float-right">
                                 <span class="font-weight-bold"><i class="fas fa-camera"></i> Tomar fotografía de
                                     acta...</span>
-                                <input type="file" onchange="displaySelectedImage(event, 'selectedImage')">
+                                <input type="file" name="fotografia_acta"
+                                    onchange="displaySelectedImage(event, 'selectedImage')">
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
 
 
-            <button type="submit" class="btn btn-primary  btn-lg btn-block"><i class="fas fa-vote-yea"></i> Guardar
-                Conteo de JRV</button>
-
+            <button type="submit" class="btn btn-primary  btn-lg btn-block">
+                <i class="fas fa-vote-yea"></i>
+                Guardar Conteo de JRV
+            </button>
         </form>
 
 

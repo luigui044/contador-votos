@@ -30,13 +30,12 @@ Route::post('/filtrar2', 'HomeController@filtrar2')->name('filtrar2');
 
 Route::post('/guardar', 'HomeController@guardarJrv')->name('guardar');
 Route::post('/guardar2', 'HomeController@guardarActa')->name('guardar2');
-
+Route::get('/prueba', 'HomeController@prueba');
 
 
 Route::get('/datos', 'HomeController@formulario')->name('ingreso');
 Route::get('/actas', 'HomeController@formulario_acta')->name('acta');
-
-Route::post('/imagen/procesar', 'OcrController@procesar')->name('imagen.procesar');
+Route::post('/actas/procesar', 'OcrController@procesarActa')->name('acta.procesar');
 
 Route::get('/limpiar', function() {
     Artisan::call('cache:clear');
