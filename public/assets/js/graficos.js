@@ -78,9 +78,9 @@ function grafico1() {
 
     var labelBullet = series.bullets.push(new am4charts.LabelBullet())
     labelBullet.label.horizontalCenter = "rigth";
-    labelBullet.label.dx = 400;
+    // labelBullet.label.dx = 400;
     labelBullet.label.text = "{valueX}";
-    labelBullet.locationX = 1;
+    labelBullet.locationX = 0;
 
     var columnTemplate = series.columns.template;
     columnTemplate.height = am4core.percent(50);
