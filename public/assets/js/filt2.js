@@ -76,13 +76,3 @@ $('#guardar').confirm({
     }
 });
 
-const video = document.getElementById('videoStream');
-navigator.mediaDevices.getUserMedia({ video: true }).then(
-    (stream) => {
-        video.srcObject = stream;
-        console.log(stream)
-    }
-
-).catch((error) => {
-    console.log(error)
-})

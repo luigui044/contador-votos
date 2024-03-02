@@ -52,31 +52,13 @@
                                     acta...</span>
                                 <input type="file" onchange="displaySelectedImage(event, 'selectedImage')">
                             </div>
-                            <div class="btn btn-blue btn-rounded float-right">
-                                <span class="font-weight-bold"><i class="fas fa-camera"></i> Tomar fotografía de
-                                    acta...</span>
-                                <input type="file" onchange="displaySelectedImage(event, 'selectedImage')">
-                            </div>
+
                         </div>
 
 
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <video id="videoStream" autoplay>
 
-                    </video>
-                    <div class="file-field">
-                        <div class="d-flex justify-content-center ">
-
-                            <div class="btn btn-blue btn-rounded float-right">
-                                <span class="font-weight-bold"><i class="fas fa-camera"></i> Tomar fotografía de
-                                    acta...</span>
-                                <input type="file" onchange="displaySelectedImage(event, 'selectedImage')">
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
 
