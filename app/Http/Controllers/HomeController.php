@@ -59,10 +59,6 @@ class HomeController extends Controller
       
     }
 
-
-
-
-
     public function formulario()
     {
             $id = auth()->user()->id;
@@ -72,7 +68,6 @@ class HomeController extends Controller
 
             return view('formulario-votos', compact('centros','candidatos'));
     }
-
 
     public function formulario_acta()
     {
