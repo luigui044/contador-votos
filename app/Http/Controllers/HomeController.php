@@ -19,6 +19,10 @@ use App\Models\ContarJrvPorcentajeActa;
 
 use App\Models\TTipoVoto;
 use App\Models\VwTipoVoto;
+use App\Models\TCandidato;
+use App\Models\TResultadosHead;
+use App\Models\TResultadosBody;
+
 
 use DB;
 use JavaScript;
@@ -61,10 +65,11 @@ class HomeController extends Controller
 
     public function formulario()
     {
-        $id = auth()->user()->id;
+            $id = auth()->user()->id;
+            $candidatos = TCandidato::all();
             $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();
              
-            return view('home', compact('centros'));
+            return view('formulario-votos', compact('centros','candidatos'));
     }
 
 
@@ -106,53 +111,41 @@ class HomeController extends Controller
     public function guardarJrv(Request $request)
     {
         $id = auth()->user()->id;
-            $saveJrv = new TResultado();
-            $saveJrv->id_centro = $request->centro;
-            $saveJrv->id_jrv = $request->jrv;
-            $saveJrv->papeletas_entregadas = $request->TPapeletas;
-            $saveJrv->papeletas_utilizadas = $request->UPapeletas;
-            $saveJrv->papeletas_sobrantes = $request->SPapeletas;
-            $saveJrv->votos_validos = $request->VValidos;
-            $saveJrv->votos_nulos = $request->VNulos;
-            $saveJrv->votos_impugnados = $request->VImpugnados;
-            $saveJrv->abstenciones = $request->abstenciones;
-            $saveJrv->v_miguel_pereira = $request->vMiguel;
-            $saveJrv->v_fmln = $request->vFmln;
-            $saveJrv->v_ambos_fmln = $request->vAmbosFmln;
-            $saveJrv->v_total_fmln = $request->vMiguel+$request->vFmln+$request->vAmbosFmln;
-            $saveJrv->v_will_salgado = $request->vWill;
-            $saveJrv->v_ni_gana = $request->vGanaNi;
-            $saveJrv->v_ambos_ni_gana = $request->vAmbosGanaNi;
-            $saveJrv->v_total_ni_gana = $request->vWill+$request->vGanaNi+$request->vAmbosGanaNi;
-            $saveJrv->v_luwing = $request->vLuwin;
-            $saveJrv->v_nt = $request->vNT;
-            $saveJrv->v_ambos_nt = $request->vAmbosNT;
-            $saveJrv->v_total_nt = $request->vLuwin+$request->vNT+ $request->vAmbosNT;
-            $saveJrv->v_moises = $request->vReyes;
-            $saveJrv->v_pdc = $request->vPDC;
-            $saveJrv->v_ambos_pdc = $request->vAmbosPDC;
-            $saveJrv->v_total_pdc = $request->vReyes+$request->vPDC +$request->vAmbosPDC;
-            $saveJrv->v_margarita = $request->vMargarita;
-            $saveJrv->v_pcn = $request->vPCN;
-            $saveJrv->v_ambos_pcn = $request->vAmbosPCN;
-            $saveJrv->v_total_pcn = $request->vMargarita+$request->vPCN+$request->vAmbosPCN;
-            $saveJrv->v_geovanni = $request->vGeovanni;
-            $saveJrv->v_cd = $request->vCD;
-            $saveJrv->v_ambos_cd = $request->vAmbosCD;
-            $saveJrv->v_total_cd = $request->vGeovanni+$request->vCD+$request->vAmbosCD;
-            $saveJrv->v_maria = $request->vMariaViera;
-            $saveJrv->v_arena = $request->vArena;
-            $saveJrv->v_ambos_arena = $request->vAmbosArena;
-            $saveJrv->v_total_arena = $request->vMariaViera+$request->vArena+$request->vAmbosArena;
-            $saveJrv->id_user = $id;
-            $saveJrv->papeletas_inutilizadas = $request->IPapeletas;
-            $saveJrv->papeletas_entregadas_vot = $request->EPapeletas;
-            $saveJrv->save();
+        $rol = auth()->user()->rol;    
+
+        $resultadosHead = new TResultadosHead();
+        $resultadosHead->id_jrv = $request->jrv;
+        $resultadosHead->papeletas_entregadas = $request->TPapeletas;
+        $resultadosHead->papeletas_utilizadas = $request->UPapeletas;
+        $resultadosHead->papeletas_sobrantes = $request->SPapeletas;
+        $resultadosHead->papeletas_inutilizadas = $request->IPapeletas;
+        $resultadosHead->papeletas_entregadas_votantes = $request->EPapeletas;
+        $resultadosHead->votos_validos = $request->VValidos;
+        $resultadosHead->votos_nulos = $request->VNulos;
+        $resultadosHead->votos_impugnados = $request->VImpugnados;
+        $resultadosHead->abstenciones = $request->abstenciones;
+        $resultadosHead->id_user = $id;
+        $resultadosHead->save();
 
 
 
+        for ($i=1; $i <=5 ; $i++) { 
+            
 
-            $rol = auth()->user()->rol;
+          $resultadosBody = new TresultadosBody();
+          $resultadosBody->id_resultado_head = $resultadosHead->id;
+          $resultadosBody->id_candidato = $i;
+          $resultadosBody->v_rostro = $request->input('vCandidato'.$i);
+          $resultadosBody->v_bandera = $request->input('vPartido'.$i);
+          $resultadosBody->v_ambos = $request->input('vAmbos'.$i);;
+
+          $resultadosBody->save();
+
+        }
+
+
+
+           
         if($rol == 1)
         {
             return redirect()->route('ingreso');
@@ -161,7 +154,7 @@ class HomeController extends Controller
         }
         else
         {
-            return redirect()->route('home');
+            return redirect()->route('formulario-votos');
         }
 
 
