@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OcrController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,8 @@ Route::post('/guardar2', 'HomeController@guardarActa')->name('guardar2');
 
 Route::get('/datos', 'HomeController@formulario')->name('ingreso');
 Route::get('/actas', 'HomeController@formulario_acta')->name('acta');
+
+Route::post('/imagen/procesar', [OcrController::class, 'procesar'])->name('imagen.procesar');
 
 Route::get('/limpiar', function() {
     Artisan::call('cache:clear');
