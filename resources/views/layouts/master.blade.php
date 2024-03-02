@@ -8,8 +8,8 @@
     <meta name="description" content="Sistema Contador de votos - SICE">
     @yield('recarga')
     @include('layouts.styles')
-    <title>Counter 2021</tit le>
-        @yield('csrf')
+    <title>Counter 2021</title>
+    @yield('csrf')
 
 </head>
 <form method="POST" id="salir" action="{{ route('logout') }}">
