@@ -13,7 +13,7 @@
             <div class="row">
 
                 <div class="col-md-5">
-
+                    {{-- {{ cambios en archivos }} --}}
                     <div class="form-group">
                         {{-- centro de votación --}}
                         <label for="centro">Centro de votación</label>
