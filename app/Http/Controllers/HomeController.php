@@ -22,6 +22,8 @@ use App\Models\VwTipoVoto;
 use App\Models\TCandidato;
 use App\Models\TResultadosHead;
 use App\Models\TResultadosBody;
+use App\Models\TResultadosHeadActa;
+use App\Models\TResultadosBodyActa;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use DB;
@@ -174,7 +176,7 @@ class HomeController extends Controller
             //  $id = auth()->user()->id;
             //  $rol = auth()->user()->rol;
             //  $jrv = $request->jrv;
-            //  $resultadosHead = new TResultadosHead();
+            //  $resultadosHead = new TResultadosHeadActa();
             //  $resultadosHead->id_jrv = $jrv;
             //  $resultadosHead->papeletas_entregadas = $request->TPapeletas;
             //  $resultadosHead->papeletas_utilizadas = 0;
@@ -190,7 +192,7 @@ class HomeController extends Controller
 
 
 
-            //  for ($i=1; $i <=5 ; $i++) { $resultadosBody=new TresultadosBody(); $resultadosBody->id_resultado_head =
+            //  for ($i=1; $i <=5 ; $i++) { $resultadosBody=new TresultadosBodyActa(); $resultadosBody->id_resultado_head =
             //      $resultadosHead->id;
             //      $resultadosBody->id_candidato = $i;
             //      $resultadosBody->v_rostro = $request->input('vCandidato'.$i);
