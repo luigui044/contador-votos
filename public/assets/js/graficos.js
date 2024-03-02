@@ -78,7 +78,7 @@ function grafico1() {
 
     var labelBullet = series.bullets.push(new am4charts.LabelBullet())
     labelBullet.label.horizontalCenter = "rigth";
-    labelBullet.label.dx = 100;
+    labelBullet.label.dx = 200;
     labelBullet.label.text = "{valueX}";
     labelBullet.locationX = 1;
 

@@ -22,7 +22,7 @@ use App\Models\VwTipoVoto;
 use App\Models\TCandidato;
 use App\Models\TResultadosHead;
 use App\Models\TResultadosBody;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 use DB;
 use JavaScript;
@@ -112,9 +112,9 @@ class HomeController extends Controller
     {
         $id = auth()->user()->id;
         $rol = auth()->user()->rol;    
-
+        $jrv = $request->jrv;
         $resultadosHead = new TResultadosHead();
-        $resultadosHead->id_jrv = $request->jrv;
+        $resultadosHead->id_jrv = $jrv;
         $resultadosHead->papeletas_entregadas = $request->TPapeletas;
         $resultadosHead->papeletas_utilizadas = $request->UPapeletas;
         $resultadosHead->papeletas_sobrantes = $request->SPapeletas;
@@ -143,18 +143,22 @@ class HomeController extends Controller
 
         }
 
-
-
+        $cualjrv = Jrv::find($jrv);
+        $cualjrv->completado =1;
+        $cualjrv->save();
            
         if($rol == 1)
-        {
+        { 
+            alert()->success('Confirmación','Resultados de JRV No.'.$cualjrv->junta. ' Registrados éxitosamente' );
+
             return redirect()->route('ingreso');
 
             
         }
         else
         {
-            return redirect()->route('formulario-votos');
+            alert()->success('Confirmación','Resultados de JRV No.'.$request->jrv. ' Registrados éxitosamente'  );
+            return back();
         }
 
 
