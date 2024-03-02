@@ -3,69 +3,43 @@
 @section('csrf')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
+
 @section('contenedor')
     <div class="container-fluid">
-        <h1 class="text-center">Formulario de ingreso de actas</h1>
+        <div class="row justify-content-center">
+            <h1 class="my-3 text-center">Formulario de ingreso de actas</h1>
+        </div>
         <hr>
-        <form action="{{ route('acta.procesar') }}" id="formulario" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-
-                <div class="col-md-5">
-
-                    <div class="form-group">
-                        {{-- centro de votación --}}
-                        <label for="centro">Centro de votación</label>
-
-                        <select name="centro" id="centro" class="form-control">
-                            <option value="">Seleccione centro de votación</option>
-                            @foreach ($centros as $item)
-                                <option value="{{ $item->id_centro }}">{{ $item->nombre }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
-                    {{-- Número JRBV --}}
-                    <div class="form-group " id="filtrar">
-
-                        <label for="jrv">Número de JRV</label>
-
-                        <select name="jrv" id="jrv" class="form-control" disabled>
-                            <option value="">seleccione número de JRV</option>
-                        </select>
-
-                    </div>
-
-
-
-                </div>
-                <div class="col-md-6">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                @include('partials.informacion-acta', compact('datos'))
+            </div>
+            <div class="col-12 col-lg-6">
+                <form class="my-3" action="{{ route('acta.procesar') }}" id="formulario" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="file-field">
                         <div class="z-depth-1-half mb-4 text-center">
-                            <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.webp" class="img-fluid"
-                                id="selectedImage" name='selectedImage' alt="example placeholder">
+                            <img src="{{ $urlArchivo ?? 'https://mdbootstrap.com/img/Photos/Others/placeholder.webp' }}"
+                                class="img-fluid" id="selectedImage" name='selectedImage' alt="example placeholder">
                         </div>
                         <div class="d-flex justify-content-center ">
                             <div class="btn btn-mdb-color btn-rounded float-left">
-                                <span class="font-weight-bold"><i class="fas fa-file-upload"></i> Subir imagen de
-                                    acta...</span>
+                                <span class="font-weight-bold">
+                                    <i class="fas fa-image mr-1"></i>
+                                    Seleccionar imagen del acta ...
+                                </span>
                                 <input type="file" onchange="displaySelectedImage(event, 'selectedImage')"
                                     name="archivo_acta">
                             </div>
-
                         </div>
                     </div>
-                </div>
-
+                    <button type="submit" class="btn btn-info w-100 mt-3">
+                        <i class="fas fa-file-upload mr-1"></i>
+                        Subir imagen
+                    </button>
+                </form>
             </div>
-
-
-            <button type="button" id="btnGuardar" class="btn btn-primary  btn-lg btn-block"><i class="fas fa-vote-yea"></i>
-                Procesar Acta</button>
-
-        </form>
-
-
+        </div>
     </div>
 @endsection
 

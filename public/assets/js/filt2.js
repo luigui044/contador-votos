@@ -54,14 +54,14 @@ function sumar(alcalde, bandera, ambos, total) {
 
 $('#guardar').confirm({
     title: 'Confirmar',
-    content: 'Desea guardar los datos de la Junta Receptora de Votos' + $('#jrv').val(),
+    content: '¿Desea guardar los datos de la Junta Receptora de Votos?' + $('#jrv').val() + ' Corrobore toda la información del formulario antes de enviarla.',
     buttons: {
         confirmar: {
             btnClass: 'btn-success',
             function() {
 
 
-                $("#formulario").submit();
+                $("#frm-acta").submit();
             },
 
         },

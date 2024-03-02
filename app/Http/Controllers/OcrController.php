@@ -7,6 +7,7 @@ use Google\Cloud\Vision\V1\Feature\Type;
 use Google\Cloud\Vision\V1\ImageAnnotatorClient;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\CentrosVotacion;
 
 class OcrController extends Controller
 {
@@ -29,12 +30,12 @@ class OcrController extends Controller
         $palabras = explode(' ', $texto);
         $total = 0;
 
-        for ($i = 0; $i < count($conceptos); $i++) {
+        for ($i = 0; $i < count($conceptos) - 1; $i++) {
             $total += floatval($palabras[$i]);
             $votos[$conceptos[$i]] = $palabras[$i];
         }
 
-        $votos['total' . trim($palabraBusqueda)] = $total;
+        $votos[$conceptos[count($conceptos) - 1]] = $total;
         return $votos;
     }
 
@@ -47,14 +48,16 @@ class OcrController extends Controller
             'ARENA',
             'NUESTRO TIEMPO',
             'FPS',
-            'NUEVAS IDEAS'
+            'NUEVAS IDEAS',
+            'TOTAL VOTOS VALIDOS'
         ];
 
         $tiposOtrosVotos = [
             'IMPUGNADOS',
             'NULOS',
             'ABSTENCIONES',
-            'FALTANTES'
+            'FALTANTES',
+            'TOTAL OTROS VOTOS'
         ];
 
         // Se cambian todos los \n que trae el texto por espacios en blanco
@@ -74,18 +77,15 @@ class OcrController extends Controller
 
     function procesarActa(Request $request) {
         $archivoActa = $request->hasFile('archivo_acta') ? $request->file('archivo_acta') : '';
-        $fotografiaActa = $request->hasFile('fotografia_acta') ? $request->file('fotografia_acta') : '';
 
         // Validando que suban el archivo del acta
-        if ($archivoActa == '' && $fotografiaActa == '') {
-            Alert::error('Error', 'Debe subir el archivo del acta para que pueda ser procesada.');
+        if ($archivoActa == '') {
+            Alert::error('Error', 'Debe subir el archivo del acta para que pueda ser procesado.');
             return back();
         }
 
-        $rutaArchivo = $archivoActa == '' ? $fotografiaActa : $archivoActa;
-        $rutaArchivo = $rutaArchivo->store('Actas');
+        $rutaArchivo = $archivoActa->store('Actas');
         $archivo = Storage::get($rutaArchivo);
-        $archivoActa = $request->hasFile('archivo_acta') ? $request->file('archivo_acta') : '';
         
         $client = new ImageAnnotatorClient([
             'credentials' => json_decode(file_get_contents('C:\Users\HP\AppData\Roaming\gcloud\application_default_credentials.json'), true)
@@ -97,7 +97,10 @@ class OcrController extends Controller
             [Type::DOCUMENT_TEXT_DETECTION]
         );
 
-        $textoBoleta = $annotation->getFullTextAnnotation()->getText();
-        return $this->procesarTexto($textoBoleta);
+        $textoActa = $annotation->getFullTextAnnotation()->getText();
+        $datos = $this->procesarTexto($textoActa);
+        $urlArchivo = asset('storage/' . $rutaArchivo);
+        $centros = CentrosVotacion::where('completado',0)->get();
+        return view('formulario-acta', compact('datos', 'urlArchivo', 'centros'));
     }
 }
