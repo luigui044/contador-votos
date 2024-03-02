@@ -67,8 +67,9 @@ class HomeController extends Controller
     {
             $id = auth()->user()->id;
             $candidatos = TCandidato::all();
-            $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();
-             
+            // $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();
+                         $centros = CentrosVotacion::where('completado',0)->get();
+
             return view('formulario-votos', compact('centros','candidatos'));
     }
 
