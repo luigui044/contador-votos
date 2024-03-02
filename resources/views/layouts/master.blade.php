@@ -31,13 +31,13 @@
                         resultados</a>
                 @endif
                 @if (auth()->user()->rol == 3 || auth()->user()->rol == 1)
-                    <a href="{{ route('dashboardActas') }}" target="_blank"
+                    {{-- <a href="{{ route('dashboardActas') }}" target="_blank"
                         class="btn btn-mdb-color font-weight-bold">Gráficos de
-                        Actas</a>
+                        Actas</a> --}}
                 @endif
                 @if (auth()->user()->rol == 1 || auth()->user()->rol == 2)
-                    <a href="{{ route('acta') }}" target="_blank" class="btn btn-mdb-color font-weight-bold">Ingresar
-                        Acta</a>
+                    {{-- <a href="{{ route('acta') }}" target="_blank" class="btn btn-mdb-color font-weight-bold">Ingresar
+                        Acta</a> --}}
                 @endif
 
 
