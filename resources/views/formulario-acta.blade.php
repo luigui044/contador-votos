@@ -40,7 +40,7 @@
 
 
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="file-field">
                         <div class="z-depth-1-half mb-4 text-center">
                             <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.webp" class="img-fluid"
