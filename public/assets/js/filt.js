@@ -1,4 +1,4 @@
-$('#centro').change(function(e) {
+$('#centro').change(function (e) {
     e.preventDefault();
 
 
@@ -18,21 +18,21 @@ function filtrar() {
         }
     });
     $.ajax({
-            method: "POST",
-            url: "/filtrar",
-            data: {
-                centro: centro
+        method: "POST",
+        url: "/filtrar",
+        data: {
+            centro: centro
 
-            }
+        }
 
-        })
-        .done(function(data) {
+    })
+        .done(function (data) {
             console.log(data);
             $('#filtrar').empty();
             $('#filtrar').html(data);
 
         })
-        .fail(function(jqXHR, a) {
+        .fail(function (jqXHR, a) {
 
 
             console.log(jqXHR)
@@ -50,3 +50,16 @@ function sumar(alcalde, bandera, ambos, total) {
     $(total).val(suma);
 
 }
+
+
+$(document).ready(function () {
+    $('.soloNumeros').on('input', function () {
+        var numero = $(this).val();
+        if (!/^[\d]*$/.test(numero)) {
+            // Si el valor no es un número, eliminar el último carácter ingresado
+            $(this).val(numero.slice(0, -1));
+            // Opcional: Mostrar un mensaje de error
+            //alert("Solo se permiten números");
+        }
+    });
+});
