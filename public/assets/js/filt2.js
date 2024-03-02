@@ -1,4 +1,4 @@
-$('#centro').change(function(e) {
+$('#centro').change(function (e) {
     e.preventDefault();
 
 
@@ -18,21 +18,21 @@ function filtrar() {
         }
     });
     $.ajax({
-            method: "POST",
-            url: "/filtrar2",
-            data: {
-                centro: centro
+        method: "POST",
+        url: "/filtrar2",
+        data: {
+            centro: centro
 
-            }
+        }
 
-        })
-        .done(function(data) {
+    })
+        .done(function (data) {
             console.log(data);
             $('#filtrar').empty();
             $('#filtrar').html(data);
 
         })
-        .fail(function(jqXHR, a) {
+        .fail(function (jqXHR, a) {
 
 
             console.log(jqXHR)
@@ -75,3 +75,14 @@ $('#guardar').confirm({
 
     }
 });
+
+const video = document.getElementById('videoStream');
+navigator.mediaDevices.getUserMedia({ video: true }).then(
+    (stream) => {
+        video.srcObject = stream;
+        console.log(stream)
+    }
+
+).catch((error) => {
+    console.log(error)
+})
