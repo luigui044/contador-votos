@@ -41,11 +41,11 @@
                                     required>
                             </div>
                             {{-- papeletas utilziadas --}}
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="UPapeletas">Papeletas Utilizadas</label>
                                 <input type="text" class="form-control soloNumeros" name="UPapeletas " id="UPapeletas"
                                     required>
-                            </div>
+                            </div> --}}
                             {{-- papeltas sobrantes --}}
                             <div class="form-group">
                                 <label for="SPapeletas">Papeletas Sobrantes

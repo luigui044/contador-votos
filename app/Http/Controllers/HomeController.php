@@ -68,7 +68,7 @@ class HomeController extends Controller
             $id = auth()->user()->id;
             $candidatos = TCandidato::all();
             // $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();
-                         $centros = CentrosVotacion::where('completado',0)->get();
+            $centros = CentrosVotacion::where('completado',0)->get();
 
             return view('formulario-votos', compact('centros','candidatos'));
     }
@@ -77,9 +77,9 @@ class HomeController extends Controller
     public function formulario_acta()
     {
         $id = auth()->user()->id;
-            $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();
-             
-            return view('formulario-acta', compact('centros'));
+        $centros = CentrosVotacion::where('completado',0)->get();
+        // $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();          
+        return view('formulario-acta', compact('centros'));
     }
 
 
@@ -117,7 +117,7 @@ class HomeController extends Controller
         $resultadosHead = new TResultadosHead();
         $resultadosHead->id_jrv = $jrv;
         $resultadosHead->papeletas_entregadas = $request->TPapeletas;
-        $resultadosHead->papeletas_utilizadas = $request->UPapeletas;
+        $resultadosHead->papeletas_utilizadas = 0;
         $resultadosHead->papeletas_sobrantes = $request->SPapeletas;
         $resultadosHead->papeletas_inutilizadas = $request->IPapeletas;
         $resultadosHead->papeletas_entregadas_votantes = $request->EPapeletas;
