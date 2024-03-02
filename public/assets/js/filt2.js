@@ -76,11 +76,3 @@ $('#guardar').confirm({
     }
 });
 
-$('#btnGuardar').onclick(function (param) {
-    Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-    })
-})
