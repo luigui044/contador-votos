@@ -103,7 +103,7 @@ class HomeController extends Controller
     {
         $centro = $request->centro;
 
-        $jrvs = Jrv::where('id_centro_vot',$centro)->where('completado',1)->get();
+        $jrvs = Jrv::where('id_centro_vot',$centro)->where('completado',0)->get();
 
         return view('partials.jrv',compact('jrvs'));
 
