@@ -38,27 +38,27 @@
 @section('contenedor')
     <div class="row mb-3">
 
-        <div class="col-md-4">
+        <div class="col-12 col-lg-4">
             <div id="chartdiv"></div>
 
         </div>
-        <div class="col-md-4  align-self-center">
+        <div class="col-12  col-lg-4 align-self-center">
             <div id="podometro"></div>
 
         </div>
-        <div class="col-md-4 align-self-center">
+        <div class="col-12 col-lg-4 align-self-center">
             <div id="podometro2"></div>
         </div>
 
     </div>
     <div class="row mt-2">
-        <div class="col-md-5">
+        <div class="col-12 col-lg-5">
 
 
             <div id="pastel"></div>
 
         </div>
-        <div class="col-md-6">
+        <div class="col-12 col-lg-6">
             <div id="barra"></div>
         </div>
     </div>

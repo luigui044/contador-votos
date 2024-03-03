@@ -43,7 +43,7 @@ class HomeController extends Controller
         if ($rol == 1 || $rol == 3) {
             return $this->resumen();
         } else {
-            return $this->formulario();
+            return view('inicio');
         }
     }
 
@@ -51,8 +51,18 @@ class HomeController extends Controller
     {
         $id = auth()->user()->id;
         $candidatos = TCandidato::all();
+        $distrito = auth()->user()->distrito;
+        if($distrito == '1000')
+        {
+            $centros = CentrosVotacion::where('completado', 0)->get();
+
+        }
+        else
+        { 
+            $distrito = intval($distrito);
+            $centros = CentrosVotacion::where('completado', 0)->where('id_distrito',$distrito)->get();
+        }
         // $centros =  CentrosVotacion::where('id_usuario',$id)->where('completado',0)->get();
-        $centros = CentrosVotacion::where('completado', 0)->get();
 
         return view('formulario-votos', compact('centros', 'candidatos'));
     }
@@ -60,7 +70,17 @@ class HomeController extends Controller
     public function formulario_acta()
     {
         $id = auth()->user()->id;
-        $centros = CentrosVotacion::where('completado', 0)->get();
+        $distrito = auth()->user()->distrito;
+        if($distrito =='1000')
+        {
+            $centros = CentrosVotacion::where('completado', 0)->get();
+
+        }
+        else
+        {
+            $distrito = intval($distrito);
+            $centros = CentrosVotacion::where('completado', 0)->where('id_distrito',$distrito)->get();
+        }
         // Por defecto se pasa una varible $datos vacia para mostrar los datos vacios del forumlario
         // de informacion del acta
         $datos = [];       
@@ -83,7 +103,7 @@ class HomeController extends Controller
     {
         $centro = $request->centro;
 
-        $jrvs = Jrv::where('id_centro_vot',$centro)->where('completado',0)->get();
+        $jrvs = Jrv::where('id_centro_vot',$centro)->where('completado2',0)->get();
 
         return view('partials.jrv', compact('jrvs'));
     }
