@@ -97,8 +97,8 @@ class OcrController extends Controller
 
             // Si esta habilitado el ocr se guardan estos campos
             if (count($datos) > 0) {
-                $headActa->papeletas_entregadas = intval($datos['entregadas a votantes']);
-                $headActa->papeletas_utilizadas = intval($datos['total papeletas']);
+                $headActa->papeletas_entregadas = intval($datos['total papeletas']);
+                $headActa->papeletas_utilizadas = 0;
                 $headActa->papeletas_sobrantes = intval($datos['sobrantes']);
                 $headActa->papeletas_inutilizadas = intval($datos['inutilizadas']);
                 $headActa->papeletas_entregadas_votantes = intval($datos['entregadas a votantes']);
