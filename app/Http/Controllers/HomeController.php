@@ -43,7 +43,7 @@ class HomeController extends Controller
         if ($rol == 1 || $rol == 3) {
             return $this->resumen();
         } else {
-            return $this->formulario();
+            return view('inicio');
         }
     }
 
