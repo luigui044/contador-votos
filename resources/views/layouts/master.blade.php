@@ -24,8 +24,6 @@
             </div>
             <div class="col-md-8 text-right ">
                 @if (auth()->user()->rol == 1)
-                    <a href="{{ route('ingreso') }}" target="_blank" class="btn btn-mdb-color  font-weight-bold "><i
-                            class="far fa-keyboard"></i> Registro de datos</a>
                     <a href="{{ route('dashboard') }}" target="_blank" class="btn btn-mdb-color font-weight-bold"><i
                             class="fas fa-chart-pie"></i> Gráficos de
                         resultados</a>
@@ -36,9 +34,10 @@
                         Actas</a> --}}
                 @endif
                 @if (auth()->user()->rol == 1 || auth()->user()->rol == 2)
-                    <a href="{{ route('acta') }}" target="_blank" class="btn btn-indigo font-weight-bold"><i
-                            class="fas fa-scroll"></i> Digitar
-                        Acta</a>
+                    <a href="{{ route('home') }}" target="_blank" class="btn btn-mdb-color  font-weight-bold "><i
+                            class="fas fa-home"></i> Inicio</a>
+                    <a href="{{ route('acta') }}" class="btn btn-indigo font-weight-bold"><i class="fas fa-scroll"></i>
+                        Registro Fotográfico de Acta</a>
                 @endif
 
 
