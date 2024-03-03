@@ -148,20 +148,28 @@ class OcrController extends Controller
         // Se guarda el archivo
         $rutaArchivo = $archivoActa->store('Actas');
 
-        // $archivo = Storage::get($rutaArchivo);
+        $archivo = Storage::get($rutaArchivo);
         
-        // $client = new ImageAnnotatorClient([
-        //     'credentials' => json_decode(file_get_contents('C:\Users\HP\AppData\Roaming\gcloud\application_default_credentials.json'), true)
-        // ]);
+        $client = new ImageAnnotatorClient([
+            'credentials' => json_decode('{
+                "account": "",
+                "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
+                "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
+                "quota_project_id": "rcla-342216",
+                "refresh_token": "1//055iqCc5k8UoaCgYIARAAGAUSNwF-L9IrTQin6mZDC7XjJPKTf4rno4OYj3XoN8i5yv5ANlWkAuzKCpLIYTcmyFx1mbG1eWogI7k",
+                "type": "authorized_user",
+                "universe_domain": "googleapis.com"
+            }', true)
+        ]);
 
-        // // Annotate an image, detecting faces.
-        // $annotation = $client->documentTextDetection(
-        //     $archivo,
-        //     [Type::DOCUMENT_TEXT_DETECTION]
-        // );
+        // Annotate an image, detecting faces.
+        $annotation = $client->documentTextDetection(
+            $archivo,
+            [Type::DOCUMENT_TEXT_DETECTION]
+        );
 
-        // $textoActa = $annotation->getFullTextAnnotation()->getText();
-        // $datosExtraidos = $this->procesarTexto($textoActa);
-        return $this->almacenarInformacionActa([], $jrv, $rutaArchivo);
+        $textoActa = $annotation->getFullTextAnnotation()->getText();
+        $datosExtraidos = $this->procesarTexto($textoActa);
+        return $this->almacenarInformacionActa($datosExtraidos, $jrv, $rutaArchivo);
     }
 }
