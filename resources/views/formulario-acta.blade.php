@@ -32,10 +32,7 @@
                             <option value="">Seleccione número de JRV</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
-                        <i class="fas fa-vote-yea"></i>
-                        Procesar Acta
-                    </button>
+
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="file-field">
@@ -54,6 +51,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-12 mt-5">
+                    <hr>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
+                        <i class="fas fa-vote-yea"></i>
+                        Procesar Acta
+                    </button>
                 </div>
             </div>
         </form>
