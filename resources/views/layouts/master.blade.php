@@ -34,8 +34,11 @@
                         Actas</a> --}}
                 @endif
                 @if (auth()->user()->rol == 1 || auth()->user()->rol == 2)
-                    <a href="{{ route('home') }}" target="_blank" class="btn btn-mdb-color  font-weight-bold "><i
-                            class="fas fa-home"></i> Inicio</a>
+                    <a href="{{ route('home') }}" class="btn btn-primary  font-weight-bold "><i class="fas fa-home"></i>
+                        Inicio</a>
+                    <a href="{{ route('ingreso') }}" class="btn btn-mdb-color  font-weight-bold "><i
+                            class="far fa-keyboard"></i>
+                        Registro Manual de Acta</a>
                     <a href="{{ route('acta') }}" class="btn btn-indigo font-weight-bold"><i class="fas fa-scroll"></i>
                         Registro Fotográfico de Acta</a>
                 @endif

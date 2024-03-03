@@ -19,7 +19,7 @@ function filtrar() {
     });
     $.ajax({
         method: "POST",
-        url: "/filtrar",
+        url: "/votos/filtrar",
         data: {
             centro: centro
 

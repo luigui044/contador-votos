@@ -7,6 +7,8 @@ use Google\Cloud\Vision\V1\Feature\Type;
 use Google\Cloud\Vision\V1\ImageAnnotatorClient;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Jrv;
+
 use App\Models\CentrosVotacion;
 use App\Models\TResultadosBodyActa;
 use App\Models\TResultadosHeadActa;
@@ -122,6 +124,11 @@ class OcrController extends Controller
                 $bodyActa->v_ambos = 0;
                 $bodyActa->save();
             }
+
+
+            $cualjrv = Jrv::find($jrv);
+            $cualjrv->completado2 =1;
+            $cualjrv->save();
 
             Alert::success('Información', 'Los datos del acta han sido guardados correctamente.');
         } catch (Exception $e) {
