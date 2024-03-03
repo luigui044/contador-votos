@@ -10,13 +10,34 @@
             <h1 class="my-3 text-center">Formulario de ingreso de actas</h1>
         </div>
         <hr>
-        <div class="row">
-            <div class="col-12 col-lg-6">
-                @include('partials.informacion-acta', compact('datos'))
-            </div>
-            <div class="col-12 col-lg-6">
-                <form class="my-3" action="{{ route('acta.procesar') }}" id="formulario" method="POST" enctype="multipart/form-data">
-                    @csrf
+        <form class="my-3" action="{{ route('acta.procesar') }}" id="frm-acta" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        {{-- centro de votación --}}
+                        <label for="centro">Centro de votación</label>
+
+                        <select name="centro" id="centro" class="form-control">
+                            <option value="">Seleccione centro de votación:</option>
+                            @foreach ($centros as $item)
+                                <option value="{{ $item->id_centro }}">{{ $item->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- Número JRBV --}}
+                    <div class="form-group" id="filtrar">
+                        <label for="jrv">Número de JRV:</label>
+                        <select name="jrv" id="jrv" class="form-control" disabled>
+                            <option value="">Seleccione número de JRV</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
+                        <i class="fas fa-vote-yea"></i>
+                        Procesar Acta
+                    </button>
+                </div>
+                <div class="col-12 col-lg-6">
                     <div class="file-field">
                         <div class="z-depth-1-half mb-4 text-center">
                             <img src="{{ $urlArchivo ?? 'https://mdbootstrap.com/img/Photos/Others/placeholder.webp' }}"
@@ -33,13 +54,9 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-info w-100 mt-3">
-                        <i class="fas fa-file-upload mr-1"></i>
-                        Subir imagen
-                    </button>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
 

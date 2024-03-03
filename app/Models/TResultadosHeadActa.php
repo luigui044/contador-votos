@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,17 +24,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $votos_impugnados
  * @property int $abstenciones
  * @property int $id_user
+ * 
+ * @property Collection|TResultadosBodyActa[] $t_resultados_body_actas
  *
  * @package App\Models
  */
 class TResultadosHeadActa extends Model
 {
 	protected $table = 't_resultados_head_actas';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'int',
 		'id_jrv' => 'int',
 		'papeletas_entregadas' => 'int',
 		'papeletas_utilizadas' => 'int',
@@ -48,7 +49,6 @@ class TResultadosHeadActa extends Model
 	];
 
 	protected $fillable = [
-		'id',
 		'id_jrv',
 		'papeletas_entregadas',
 		'papeletas_utilizadas',
@@ -59,6 +59,12 @@ class TResultadosHeadActa extends Model
 		'votos_nulos',
 		'votos_impugnados',
 		'abstenciones',
-		'id_user'
+		'id_user',
+		'archivo'
 	];
+
+	public function t_resultados_body_actas()
+	{
+		return $this->hasMany(TResultadosBodyActa::class, 'id_resultado_head');
+	}
 }

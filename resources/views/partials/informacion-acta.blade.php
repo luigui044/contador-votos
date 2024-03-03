@@ -182,10 +182,6 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" id="guardar" class="btn btn-primary  btn-lg btn-block">
-                    <i class="fas fa-vote-yea"></i>
-                    Procesar Acta
-                </button>
             </form>
         </div>
     </div>
