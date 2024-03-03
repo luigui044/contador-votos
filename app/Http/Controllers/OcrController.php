@@ -112,7 +112,7 @@ class OcrController extends Controller
             $headActa->archivo = $rutaArchivo;
             $headActa->save();
 
-            for ($i=1; $i <= 6; $i++) {
+            for ($i = 1; $i <= 6; $i++) {
                 $bodyActa = new TResultadosBodyActa();
                 $bodyActa->id_resultado_head = $headActa->id;
                 $bodyActa->id_candidato = $i;
@@ -154,29 +154,34 @@ class OcrController extends Controller
 
         // Se guarda el archivo
         $rutaArchivo = $archivoActa->store('Actas');
-
-        $archivo = Storage::get($rutaArchivo);
+        $datosExtraidos = [];
+        try {
+            $archivo = Storage::get($rutaArchivo);
         
-        $client = new ImageAnnotatorClient([
-            'credentials' => json_decode('{
-                "account": "",
-                "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
-                "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
-                "quota_project_id": "rcla-342216",
-                "refresh_token": "1//055iqCc5k8UoaCgYIARAAGAUSNwF-L9IrTQin6mZDC7XjJPKTf4rno4OYj3XoN8i5yv5ANlWkAuzKCpLIYTcmyFx1mbG1eWogI7k",
-                "type": "authorized_user",
-                "universe_domain": "googleapis.com"
-            }', true)
-        ]);
-
-        // Annotate an image, detecting faces.
-        $annotation = $client->documentTextDetection(
-            $archivo,
-            [Type::DOCUMENT_TEXT_DETECTION]
-        );
-
-        $textoActa = $annotation->getFullTextAnnotation()->getText();
-        $datosExtraidos = $this->procesarTexto($textoActa);
+            $client = new ImageAnnotatorClient([
+                'credentials' => json_decode('{
+                    "account": "",
+                    "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
+                    "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
+                    "quota_project_id": "rcla-342216",
+                    "refresh_token": "1//055iqCc5k8UoaCgYIARAAGAUSNwF-L9IrTQin6mZDC7XjJPKTf4rno4OYj3XoN8i5yv5ANlWkAuzKCpLIYTcmyFx1mbG1eWogI7k",
+                    "type": "authorized_user",
+                    "universe_domain": "googleapis.com"
+                }', true)
+            ]);
+    
+            // Annotate an image, detecting faces.
+            $annotation = $client->documentTextDetection(
+                $archivo,
+                [Type::DOCUMENT_TEXT_DETECTION]
+            );
+    
+            $textoActa = $annotation->getFullTextAnnotation()->getText();
+            $datosExtraidos = $this->procesarTexto($textoActa);
+        } catch (Exception $e) {
+            $datosExtraidos = [];
+        }
+       
         return $this->almacenarInformacionActa($datosExtraidos, $jrv, $rutaArchivo);
     }
 }
