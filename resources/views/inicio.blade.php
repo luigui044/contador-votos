@@ -28,10 +28,10 @@
 
             <h3 class="oswald-text text-uppercase">Seleccione una opción</h3>
             <a href="{{ route('ingreso') }}" target="_blank" class="btn btn-mdb-color  font-weight-bold "><i
-                    class="far fa-keyboard"></i> Registro de datos</a>
+                    class="far fa-keyboard"></i> Registro Manual de Acta</a>
             <a href="{{ route('acta') }}" target="_blank" class="btn btn-indigo font-weight-bold"><i
                     class="fas fa-scroll"></i>
-                Digitar Acta</a>
+                Registro Fotográfico de Acta</a>
         </div>
     </div>
 @endsection
