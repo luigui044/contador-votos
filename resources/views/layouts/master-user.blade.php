@@ -17,14 +17,11 @@
 </form>
 
 <body>
-
-
     <div class="container-fluid">
         @yield('contenedor')
     </div>
     @include('sweetalert::alert')
     @include('layouts.scripts')
-
 </body>
 
 
