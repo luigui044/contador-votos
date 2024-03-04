@@ -90,7 +90,7 @@ class HomeController extends Controller
         return view('formulario-acta', compact('centros', 'datos'));
     }
 
-
+ 
     public function filtrar(Request $request)
     {
         $centro = $request->centro;
@@ -108,7 +108,7 @@ class HomeController extends Controller
 
         $jrvs = Jrv::where('id_centro_vot',$centro)->where('completado2',0)->get();
 
-        return view('partials.jrv', compact('jrvs'));
+        return view('partials.jrv', compact('jrvs')) ;
     }
 
     public function guardarJrv(Request $request)
