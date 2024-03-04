@@ -22,12 +22,8 @@
             <div class="col-md-4 text-white">
                 <h1><b><u>SICE - Módulo de Contador </u></b></h1>
             </div>
-            <div class="col-md-8 text-right ">
-                @if (auth()->user()->rol == 1)
-                    <a href="{{ route('dashboard') }}" target="_blank" class="btn btn-mdb-color font-weight-bold"><i
-                            class="fas fa-chart-pie"></i> Gráficos de
-                        resultados</a>
-                @endif
+            <div class="col-12 col-md-8  text-right ">
+
                 @if (auth()->user()->rol == 3 || auth()->user()->rol == 1)
                     {{-- <a href="{{ route('dashboardActas') }}" target="_blank"
                         class="btn btn-mdb-color font-weight-bold">Gráficos de
@@ -41,6 +37,12 @@
                         Registro Manual de Acta</a>
                     <a href="{{ route('acta') }}" class="btn btn-indigo font-weight-bold"><i class="fas fa-scroll"></i>
                         Registro Fotográfico de Acta</a>
+                @endif
+                @if (auth()->user()->rol == 1)
+                    <a href="{{ route('dashboard') }}" target="_blank" class="btn btn-mdb-color font-weight-bold"><i
+                            class="fas fa-chart-pie"></i> Resultados de Registro manual</a>
+                    <a href="{{ route('dashboardActas') }}" target="_blank" class="btn btn-indigo font-weight-bold"><i
+                            class="fas fa-chart-pie"></i> Resultados de Registro fotográfico</a>
                 @endif
 
 

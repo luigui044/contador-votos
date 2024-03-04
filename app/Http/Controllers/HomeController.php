@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\CentrosVotacion;
 use App\Models\Jrv;
 use App\Models\VwSumaVoto;
-use App\Models\VSumaVotosActa;
+use App\Models\VwSumaVotosActa;
+use App\Models\VwTipoVotosActa;
 use App\Models\ContarJrv;
 use App\Models\ContarJrvActa;
 use App\Models\TTipoVotoActa;
@@ -16,6 +17,8 @@ use App\Models\VwTipoVoto;
 use App\Models\TCandidato;
 use App\Models\TResultadosHead;
 use App\Models\TResultadosBody;
+use App\Models\TResultadosHeadActa;
+use App\Models\TResultadosBodyActa;
 use JavaScript;
 
 
@@ -218,12 +221,14 @@ class HomeController extends Controller
 
     public function resumenActas()
     {
-        $voto = VSumaVotosActa::all();
+       
+        $votos = VwSumaVotosActa::all();
         $jrvs = ContarJrvActa::all();
         $jrvsporc = ContarJrvPorcentajeActa::all();
-        $tvotos = TTipoVotoActa::all();
+        $tvotos = VwTipoVotosActa::all();
         JavaScript::put([
-            'voto' => $voto,
+            'votos' => $votos,
+
             'jrvs' => $jrvs,
             'jrvsporc' => $jrvsporc,
             'tvotos' => $tvotos
